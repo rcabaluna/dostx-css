@@ -10,10 +10,30 @@
     <link rel="shortcut icon" href="<?=base_url('assets/images/logo/favicon.png')?>">
 
     <!-- page css -->
+    <link href="<?=base_url('assets/vendors/datatables/dataTables.bootstrap.min.css')?>" rel="stylesheet" />
+    <link rel="stylesheet" href="<?=base_url('assets/vendors/datatables/buttons.dataTables.min.css')?>" />
 
     <!-- Core css -->
     <link href="<?=base_url('assets/css/app.min.css')?>" rel="stylesheet">
+    
+    <script>var BASE_URL = '<?=base_url()?>'; </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?=base_url('assets/vendors/datatables/jquery.dataTables.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendors/datatables/dataTables.bootstrap.min.js')?>"></script>
 
+    <!-- Core Vendors JS -->
+    <script src="<?=base_url('assets/js/vendors.min.js')?>"></script>
+
+    <!-- Core JS -->
+    <script src="<?=base_url('assets/js/app.min.js')?>"></script>
+
+    <!-- page js -->
+    <script src="<?=base_url('assets/vendors/datatables/jquery.dataTables.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendors/datatables/dataTables.bootstrap.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendors/datatables/dataTables.buttons.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendors/datatables/jszip.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendors/datatables/buttons.html5.min.js')?>"></script>
+    
 </head>
 
 <body>
@@ -147,7 +167,24 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<?=base_url('reports/responses')?>">Responses</a>
+                                    <?php
+
+                                        $officeid='';
+                                        if ($_SESSION['usertype'] == 'admin') {
+                                            $officeid='all';
+                                        }else{
+                                            $officeid = $_SESSION['officeid'];
+                                        }
+                                        
+                                        $db = \Config\Database::connect();
+                                        $query = $db->query("SELECT quarterid FROM tblquarters WHERE is_active = 1");
+                                        $result = $query->getRowArray();
+                                        $quarterid = $result['quarterid'];
+                                    ?>
+                                    <a href="<?=base_url('reports/responses?servicetype=all&year='.date('Y').'&quarterid='.$quarterid.'&officeid='.$officeid)?>">Responses</a>
+                                </li>
+                                <li>
+                                    <a href="<?=base_url('reports/generate')?>">Generate</a>
                                 </li>
                             </ul>
                         </li>
@@ -173,13 +210,7 @@
     </div>
 
     
-    <!-- Core Vendors JS -->
-    <script src="<?=base_url('assets/js/vendors.min.js')?>"></script>
 
-    <!-- page js -->
-
-    <!-- Core JS -->
-    <script src="<?=base_url('assets/js/app.min.js')?>"></script>
 
 </body>
 

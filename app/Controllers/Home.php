@@ -34,6 +34,8 @@ class Home extends BaseController
                         'userid'  => $check['userid'],
                         'username' => $check['username'],
                         'office' => $check['name'],
+                        'officeid' => $check['officeid'],
+
                         'logged_in' => true,
                         'usertype' => $check['usertype']
 

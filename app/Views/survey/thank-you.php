@@ -40,7 +40,7 @@
         <p style="text-align:justify;"> Thank you for taking the time to complete our customer service survey. Your feedback is invaluable in helping us maintain and improve the quality of service we provide.
         </p>
         <div class="text-center m-t-30">
-            <button onclick="window.history.back();" class="btn btn-primary btn-sm btn-tone">Take Another Survey</button>
+            <button onclick="returnPrev()" class="btn btn-primary btn-sm btn-tone">Take Another Survey</button>
         </div>
     </div>
 </div>
@@ -68,48 +68,8 @@
         <script src="<?=base_url('assets/js/app.min.js')?>"></script>
 
         <script>
-            $(document).ready(function () {
-                $('.select2').select2();
-                var frm1data;
-                var frm2data;
-                var frm3data;
-
-                $("#frm-step-1").submit(function (e) { 
-                    frm1data = $("#frm-step-1").serializeArray();
-                    console.log(frm1data);
-                    $("#frm-step-1").hide();
-                    $("#frm-step-2").show();
-                    e.preventDefault();
-                });
-
-                $("#frm-step-2").submit(function (e) {
-                    frm2data = $("#frm-step-2").serializeArray();
-                    console.log(frm2data);
-                    $("#frm-step-2").hide();
-                    $("#frm-step-3").show();
-                    e.preventDefault();
-                });
-
-                $("#frm-step-3").submit(function (e) {
-                    frm3data = $("#frm-step-3").serializeArray();
-                    console.log(frm3data);
-
-                    $.post(BASE_URL+"survey/save",{
-                        form1:frm1data,
-                        form2:frm2data,
-                        form3:frm3data
-                    },function(data){
-                        if (data == "SUCCESS") {
-                            
-                        }
-                    });
-                    e.preventDefault();
-                });
-            });
-
-            function backForm(current,previous){
-                $("#frm-step-"+previous).show();
-                $("#frm-step-"+current).hide();
+            function returnPrev(){
+                window.history.back();
             }
         </script>
 

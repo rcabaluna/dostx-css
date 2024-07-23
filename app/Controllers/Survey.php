@@ -25,7 +25,7 @@ class Survey extends BaseController
             'is_active' => 1,
             'is_external' => $type === 'external' ? 1 : 0
         );
-            
+
         $data['services'] = $this->surveyModel->get_services($param);
         $data['clienttype'] = $this->surveyModel->get_all_data('tblclienttype');
 
@@ -66,6 +66,8 @@ class Survey extends BaseController
 
         $form1_data_transformed['quarterid'] = $quarterid;
         $form1_data_transformed['year'] = date('Y');
+
+        $form1_data_transformed['officeid'] = $_SESSION['officeid'];
 
         $summaryid = $this->surveyModel->insert_data('tblcss_summary',$form1_data_transformed);
 

@@ -50,8 +50,12 @@
                                                         <option value="">Please select a service...</option>
                                                         <?php foreach ($services as $servicesRow) { ?>
                                                             <option value="<?=$servicesRow['servicesid']?>">
-                                                                <?=$servicesRow['name']?> <b><?=$servicesRow['unit'] ? ' - '.$servicesRow['unit'] : ''?>
-                                                                <b><?=$servicesRow['is_cc'] == 1 ? '*' : ''?></b>
+                                                                <?=$servicesRow['name']?>
+                                                                <?php if ($servicesRow['name'] != null && $servicesRow['unit'] != null){
+                                                                    echo " - ";
+                                                                }?>
+                                                                <?=$servicesRow['unit']?>
+                                                                <?=$servicesRow['is_cc'] == 1 ? '*' : ''?></b>
                                                             </option>
                                                             <?php } ?>
                                                     </select>
@@ -69,6 +73,7 @@
                                                             <label for="rdoclienttype<?=$clienttypeRow['clienttypeid']?>"><?=$clienttypeRow['name']?></label>
                                                         </div>
                                                     <?php } ?>
+                                                    <div style="color:red; display: none;" aria-live="polite">Please select a client type</div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="name"><b>Name:</b> <small>(optional)</small></label>
@@ -96,7 +101,7 @@
                                                 <div class="form-group">
                                                     <label for="vulnerable-sector"><b>Vulnerable Sector:</b> <small>(optional)</small></label>
                                                     <div class="checkbox">
-                                                        <input type="checkbox" id="chkvs1" name="vul_sector" value="Senior Citizen" required/>
+                                                        <input type="checkbox" id="chkvs1" name="vul_sector" value="Senior Citizen"/>
                                                         <label for="chkvs1">Senior Citizen</label>
                                                     </div>
                                                     <div class="checkbox">
@@ -119,7 +124,7 @@
                                                 <div class="form-group">
                                                     <label for="how-did-you-know-dost"><b>How did you know DOST?:</b> <span class="text-danger">*</span></label>
                                                     <div class="checkbox">
-                                                        <input type="checkbox" id="chkhdyk1" name="dost_info" value="Facebook" required/>
+                                                        <input type="checkbox" id="chkhdyk1" name="dost_info" value="Facebook"/>
                                                         <label for="chkhdyk1">Facebook</label>
                                                     </div>
                                                     <div class="checkbox">
@@ -174,44 +179,36 @@
                                                 <div class="form-group">
                                                     <label for="cc2"><b>CC2: If aware of CC (answered 1-3 in CC1), would you say that the CC of this office was ...?</b> <span class="text-danger">*</span></label>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC2-1" name="cc2" value="5" checked required/>
+                                                        <input type="radio" id="rdoCC2-1" name="cc2" value="4" checked required/>
                                                         <label for="rdoCC2-1">Easy to see</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC2-2" name="cc2" value="4" />
+                                                        <input type="radio" id="rdoCC2-2" name="cc2" value="3" />
                                                         <label for="rdoCC2-2">Somewhat easy to see</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC2-3" name="cc2" value="3" />
+                                                        <input type="radio" id="rdoCC2-3" name="cc2" value="2" />
                                                         <label for="rdoCC2-3">Difficult to see</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC2-4" name="cc2" value="2" />
+                                                        <input type="radio" id="rdoCC2-4" name="cc2" value="1" />
                                                         <label for="rdoCC2-4">Not visible at all</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="rdoCC2-5" name="cc2" value="1" />
-                                                        <label for="rdoCC2-5">N/A</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="cc3"><b>CC3: If aware of CC (answered 1-3 in CC1), how much did the CC help you in your transaction?</b> <span class="text-danger">*</span></label>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC3-1" name="cc3" value="4" checked required/>
+                                                        <input type="radio" id="rdoCC3-1" name="cc3" value="3" checked required/>
                                                         <label for="rdoCC3-1">Helped very much</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC3-2" name="cc3" value="3" />
+                                                        <input type="radio" id="rdoCC3-2" name="cc3" value="2" />
                                                         <label for="rdoCC3-2">Somewhat helped</label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" id="rdoCC3-3" name="cc3" value="2" />
+                                                        <input type="radio" id="rdoCC3-3" name="cc3" value="1" />
                                                         <label for="rdoCC3-3">Did not help</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="rdoCC3-4" name="cc3" value="1" />
-                                                        <label for="rdoCC3-4">N/A</label>
                                                     </div>
                                                 </div>
                                                 <button type="button" onclick="backForm(2,1)" class="btn btn-primary btn-tone m-r-5">Back</button>
@@ -219,7 +216,7 @@
                                             </form>
                                             <form id="frm-step-3" method="POST" style="display:none;">
                                                 <div class="form-group">
-                                                    <label for="sqd0"><b>sqd0. I am satisfied with the service that I availed.</b> <span class="text-danger">*</span></label>
+                                                    <label for="sqd0"><b>SQD0. I am satisfied with the service that I availed.</b> <span class="text-danger">*</span></label>
                                                     <div class="radio">
                                                         <input type="radio" id="sqd0_strongly_agree" name="sqd0" value="5" checked />
                                                         <label for="sqd0_strongly_agree">Strongly Agree</label>
@@ -239,10 +236,6 @@
                                                     <div class="radio">
                                                         <input type="radio" id="sqd0_strongly_disagree" name="sqd0" value="1" />
                                                         <label for="sqd0_strongly_disagree">Strongly Disagree</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd0_na" name="sqd0" value="0" />
-                                                        <label for="sqd0_na">N/A (Not Applicable)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -268,10 +261,6 @@
                                                         <input type="radio" id="sqd1_strongly_disagree" name="sqd1" value="1" />
                                                         <label for="sqd1_strongly_disagree">Strongly Disagree</label>
                                                     </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd1_na" name="sqd1" value="0" />
-                                                        <label for="sqd1_na">N/A (Not Applicable)</label>
-                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sqd2"><b>SQD2. The office followed the transaction's requirements and steps based on the information provided.</b> <span class="text-danger">*</span></label>
@@ -295,10 +284,6 @@
                                                     <div class="radio">
                                                         <input type="radio" id="sqd2_strongly_disagree" name="sqd2" value="1" />
                                                         <label for="sqd2_strongly_disagree">Strongly Disagree</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd2_na" name="sqd2" value="0" />
-                                                        <label for="sqd2_na">N/A (Not Applicable)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -324,10 +309,6 @@
                                                         <input type="radio" id="sqd3_strongly_disagree" name="sqd3" value="1" />
                                                         <label for="sqd3_strongly_disagree">Strongly Disagree</label>
                                                     </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd3_na" name="sqd3" value="0" />
-                                                        <label for="sqd3_na">N/A (Not Applicable)</label>
-                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sqd4"><b>SQD4. I easily found information about my transaction from the office's website.</b> <span class="text-danger">*</span></label>
@@ -352,10 +333,6 @@
                                                         <input type="radio" id="sqd4_strongly_disagree" name="sqd4" value="1" />
                                                         <label for="sqd4_strongly_disagree">Strongly Disagree</label>
                                                     </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd4_na" name="sqd4" value="0" />
-                                                        <label for="sqd4_na">N/A (Not Applicable)</label>
-                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sqd5"><b>SQD5. I paid a reasonable amount of fees for my transaction. (If service was free, mark the "N/A" column).</b> <span class="text-danger">*</span></label>
@@ -378,10 +355,6 @@
                                                     <div class="radio">
                                                         <input type="radio" id="sqd5_strongly_disagree" name="sqd5" value="1" />
                                                         <label for="sqd5_strongly_disagree">Strongly Disagree</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd5_na" name="sqd5" value="0" />
-                                                        <label for="sqd5_na">N/A (Not Applicable)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -406,10 +379,6 @@
                                                         <input type="radio" id="sqd6_strongly_disagree" name="sqd6" value="1" />
                                                         <label for="sqd6_strongly_disagree">Strongly Disagree</label>
                                                     </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd6_na" name="sqd6" value="0" />
-                                                        <label for="sqd6_na">N/A (Not Applicable)</label>
-                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sqd7"><b>SQD7. The office's online support was available, and (if asked questions) online support was quick to respond</b> <span class="text-danger">*</span></label>
@@ -432,10 +401,6 @@
                                                     <div class="radio">
                                                         <input type="radio" id="sqd7_strongly_disagree" name="sqd7" value="1" />
                                                         <label for="sqd7_strongly_disagree">Strongly Disagree</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd7_na" name="sqd7" value="0" />
-                                                        <label for="sqd7_na">N/A (Not Applicable)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -460,10 +425,6 @@
                                                     <div class="radio">
                                                         <input type="radio" id="sqd8_strongly_disagree" name="sqd8" value="1" />
                                                         <label for="sqd8_strongly_disagree">Strongly Disagree</label>
-                                                    </div>
-                                                    <div class="radio">
-                                                        <input type="radio" id="sqd8_na" name="sqd8" value="0" />
-                                                        <label for="sqd8_na">N/A (Not Applicable)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -500,11 +461,6 @@
 
         <script>
             $(document).ready(function () {
-                $('.select2').select2();
-                var frm1data;
-                var frm2data;
-                var frm3data;
-
                 $("#frm-step-1").submit(function (e) { 
                     frm1data = $("#frm-step-1").serializeArray();
                     console.log(frm1data);
@@ -531,7 +487,12 @@
                         form3:frm3data
                     },function(data){
                         if (data == "SUCCESS") {
-                            
+                            $('#frm-step-1')[0].reset();
+                            $('#frm-step-3 input[type="email"]').val('');
+                            $('#frm-step-3 textarea').val('');
+                            window.location.href = BASE_URL+"thank-you";
+                        }else{
+                            alert(data);
                         }
                     });
                     e.preventDefault();

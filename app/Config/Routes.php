@@ -23,4 +23,7 @@ $routes->post('survey/save','Survey::save');
 
 
 // REPORTS ROUTES
-$routes->get('reports/responses','Reports::responses');
+$routes->get('reports/responses','Reports::responses',['filter' => 'authGuard']);
+$routes->get('reports/generate','Reports::generate',['filter' => 'authGuard']);
+$routes->post('reports/gen_result','Reports::gen_result',['filter' => 'authGuard']);
+$routes->get('reports/gen_pdf','Reports::gen_pdf',['filter' => 'authGuard']);
