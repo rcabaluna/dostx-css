@@ -13,17 +13,48 @@ class Survey extends BaseController
     {
         $this->surveyModel = new SurveyModel();
     }
-    public function index($type)
-    {
-        if (!in_array($type, ['internal', 'external'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Page not found");
-        }
+    // public function index($type)
+    // {
+    //     if (!in_array($type, ['internal', 'external'])) {
+    //         throw new \CodeIgniter\Exceptions\PageNotFoundException("Page not found");
+    //     }
 
-            $this->session->set('servicetype', $type);
+    //         $this->session->set('servicetype', $type);
+
+    //     $param = array(
+    //         'is_active' => 1,
+    //         'is_external' => $type === 'external' ? 1 : 0
+    //     );
+
+    //     $data['services'] = $this->surveyModel->get_services($param);
+    //     $data['clienttype'] = $this->surveyModel->get_all_data('tblclienttype');
+
+
+    //     return view('survey/survey-form',$data);
+    // }
+
+
+    public function external(){
 
         $param = array(
             'is_active' => 1,
-            'is_external' => $type === 'external' ? 1 : 0
+            'is_external' => 1
+        );
+
+        $data['services'] = $this->surveyModel->get_services($param);
+        $data['clienttype'] = $this->surveyModel->get_all_data('tblclienttype');
+        $data['offices'] = $this->surveyModel->get_all_data('tbloffice');
+
+
+        return view('survey/survey-form',$data);
+    }
+
+
+    public function internal(){
+
+        $param = array(
+            'is_active' => 1,
+            'is_external' => 0
         );
 
         $data['services'] = $this->surveyModel->get_services($param);
@@ -67,7 +98,9 @@ class Survey extends BaseController
         $form1_data_transformed['quarterid'] = $quarterid;
         $form1_data_transformed['year'] = date('Y');
 
-        $form1_data_transformed['officeid'] = $_SESSION['officeid'];
+        if (isset($_SESSION['officeid'])) {
+            $form1_data_transformed['officeid'] = $_SESSION['officeid'];
+        }
 
         $summaryid = $this->surveyModel->insert_data('tblcss_summary',$form1_data_transformed);
 

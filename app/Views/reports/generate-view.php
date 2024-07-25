@@ -1,4 +1,4 @@
-<?= $this->extend('admin/main') ?>
+<?= $this->extend($_SESSION['usertype'].'/main') ?>
 <?= $this->section('content') ?>
 <!-- Content Wrapper START -->
 <div class="main-content">

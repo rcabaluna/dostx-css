@@ -1,6 +1,58 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.text-center{
+    text-align: center;
+}
+.table-full{
+    width: 100%;
+}
+</style>
 <div class="m-t-25">
+<div class="text-center">
+<span>Republic of the Philippines</span>
+<h3>DEPARTMENT OF SCIENCE AND TECHNOLOGY</h3>
+</div>
+
+EXTERNAL AND INTERNAL CUSTOMER SATISFACTION SURVEY REPORT <br>
+Year: <?=$params['year']?> <br>
+<?php
+        if ($params['typeselector'] == 'semester') {
+            if ($params['semesterid'] != "all") {
+                echo "Semester : ";
+                if ($params['semesterid'] == 1) {
+                    echo "1st Semester";
+                }else{
+                    echo "2nd Semester";
+                }
+            }
+        }
+
+        if ($params['typeselector'] == 'quarter') {
+            echo "Quarter : ";
+            switch ($params['quarterid']) {
+                case 1:
+                    echo "1st Quarter";
+                    break;
+                    case 2:
+                        echo "2nd Quarter";
+                        break;case 3:
+                            echo "3rd Quarter";
+                            break;case 4:
+                                echo "4th Quarter";
+                                break;
+                default:
+                    break;
+            }
+        }
+    ?>
+    <br>
+Office: <?=$officename['name']?> <br>
     <h5>Part I. Respondents Demographic Profile</h5>
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-full table-full">
         <thead>
             <tr class="text-center">
                 <th></th>
@@ -320,7 +372,7 @@
     </table>
 
     <h5>Part II. Results of Citizen's Charter Questions</h5>
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-full">
         <thead>
             <tr>
                 <th>Citizen's Charter Answers</th>
@@ -330,9 +382,7 @@
         </thead>
         <tbody>
             <tr>
-                <td><b>CC1. Which of the following describes your awareness of the CC?</b></td>
-                <td></td>
-                <td></td>
+                <td colspan="3"><b>CC1. Which of the following describes your awareness of the CC?</b></td>
             </tr>
             <tr>
                 <td>1. I know what a CC is and I saw this office's CC.</td>
@@ -363,9 +413,7 @@
                     : 0) . '%' ?></td>
             </tr>
             <tr>
-                <td><b>CC2. If aware of CC, would you say that the CC of this office was...?</b></td>
-                <td></td>
-                <td></td>
+                <td colspan="3"><b>CC2. If aware of CC, would you say that the CC of this office was...?</b></td>
             </tr>
             <tr>
                 <td>1. Easy to see</td>
@@ -396,9 +444,7 @@
                     : 0) . '%' ?></td>
             </tr>
             <tr>
-                <td><b>CC3. If aware of CC, how much did the CC help you in your transaction?</b></td>
-                <td></td>
-                <td></td>
+                <td colspan="3"><b>CC3. If aware of CC, how much did the CC help you in your transaction?</b></td>
             </tr>
             <tr>
                 <td>1. Helped very much</td>
@@ -424,7 +470,7 @@
         </tbody>
     </table>
     <h5>Part III. Score Per Service</h5>
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-full">
         <thead>
             <tr class="text-center">
                 <th>Services</th>
@@ -462,10 +508,10 @@
         </tbody>
     </table>
     <h5>Part IV. Results of Service Quality Dimensions</h5>
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-full" style="margin-bottom: 30px;">
         <thead>
             <tr class="text-center">
-                <th>SQD</th>
+                <th>Service Quality Dimensions</th>
                 <th>Strongly Agree</th>
                 <th>Agree</th>
                 <th>Neither Agree or Disagree</th>
@@ -497,7 +543,7 @@
         </tbody>
     </table>
 
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-full">
         <thead>
             <tr class="text-center">
                 <th>Service Quality Dimensions</th>
@@ -616,7 +662,7 @@
     <?=$params['year']?> is <strong><?=$sqd0_percentage?>%</strong></p>
 
     <p><b>The interpretation of the results are as follows:</b></p>
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Percentage</th>

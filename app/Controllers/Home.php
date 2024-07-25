@@ -25,7 +25,7 @@ class Home extends BaseController
 
             $pass = $this->request->getPost('password');
             $check = $this->homeModel->get_data('tblusers',array('username' => $this->request->getPost('username')));
-
+            
             if (!$check) {
                 $data['invalid'] = true;
             }else{
@@ -45,14 +45,13 @@ class Home extends BaseController
                     if ($check['usertype'] == 'admin') {
                         return redirect()->to(base_url('admin/dashboard')); 
                     }else{
-                        // return redirect()->to(base_url('user-links?event='.$check['eventaccess'])); 
+                        return redirect()->to(base_url('user/dashboard')); 
                     }
                 }else{
                     $data['invalid'] = true;
                 }
             }
         }
-
         return view('login');
     }
 

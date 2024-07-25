@@ -1,4 +1,4 @@
-<?= $this->extend('admin/main') ?>
+<?= $this->extend($_SESSION['usertype'].'/main') ?>
 <?= $this->section('content') ?>
 <!-- Content Wrapper START -->
 <div class="main-content">
@@ -11,21 +11,6 @@
             </nav>
         </div>
     </div>
-    <?php if (isset($_SESSION['update'])) {
-            ?>
-            <div class="mt-3 alert alert-success alert-dismissible fade show" id="alert-update-status">
-                <div class="d-flex align-items-center justify-content-start">
-                    <span class="alert-icon">
-                        <i class="anticon anticon-check-o"></i>
-                    </span>
-                    z<span>The status has been updated successfully!</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            <?php }
-        ?>
     <div class="card">
         <div class="card-body">
             <div class="row m-b-30">
@@ -42,20 +27,24 @@
                                 <option value="0" <?php echo $servicetype == '0' ? 'selected' : ''; ?>>Internal</option>
                             </select>
                         </div>
-                        <div class="m-b-10 m-r-15">
-                            <label for="">Office</label>
-                            <select class="custom-select" id="selofficeid" style="min-width: 50px;">
-                                <option value="all">All</option>
-                                <?php
-                                $officeid_from_url = isset($_GET['officeid']) ? $_GET['officeid'] : '';
+                        <?php if ($_SESSION['usertype'] == 'admin') { ?>
+                            <div class="m-b-10 m-r-15">
+                                <label for="">Office</label>
+                                <select class="custom-select" id="selofficeid" style="min-width: 50px;">
+                                    <option value="all">All</option>
+                                    <?php
+                                    $officeid_from_url = isset($_GET['officeid']) ? $_GET['officeid'] : '';
 
-                                foreach ($offices as $officesRow) { ?>
-                                    <option value="<?=$officesRow['officeid']?>" <?= ($officesRow['officeid'] == $officeid_from_url) ? 'selected' : '' ?>>
-                                        <?=$officesRow['name']?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                        </div>
+                                    foreach ($offices as $officesRow) { ?>
+                                        <option value="<?=$officesRow['officeid']?>" <?= ($officesRow['officeid'] == $officeid_from_url) ? 'selected' : '' ?>>
+                                            <?=$officesRow['name']?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>    
+                        <?php }else{ ?>
+                            <input type="hidden" id="selofficeid" value="<?=$_SESSION['officeid']; ?>">
+                        <?php } ?>
                         <div class="m-b-10 m-r-15">
                             <label for="">Quarter</label>
                             <select class="custom-select" id="selquarterid" style="min-width: 80px;">

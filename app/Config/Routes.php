@@ -16,8 +16,12 @@ $routes->get('/admin/registry/quarters', 'Admin::quarters',['filter' => 'authGua
 $routes->get('/admin/activate_quarter/(:any)','Admin::activate_quarter/$1');
 
 
-$routes->get('survey/(:segment)(/(:any))?', 'Survey::index/$1', ['as' => 'survey_index','filter' => 'authGuard']);
-$routes->get('thank-you', 'Survey::thank_you', ['filter' => 'authGuard']);
+$routes->get('survey/external', 'Survey::external');
+
+$routes->get('survey/internal', 'Survey::internal');
+
+
+$routes->get('thank-you', 'Survey::thank_you');
 
 $routes->post('survey/save','Survey::save');
 
@@ -27,3 +31,7 @@ $routes->get('reports/responses','Reports::responses',['filter' => 'authGuard'])
 $routes->get('reports/generate','Reports::generate',['filter' => 'authGuard']);
 $routes->post('reports/gen_result','Reports::gen_result',['filter' => 'authGuard']);
 $routes->get('reports/gen_pdf','Reports::gen_pdf',['filter' => 'authGuard']);
+
+
+//USERS ROUTES
+$routes->get('user/dashboard','User::dashboard',['filter' => 'authGuard']);

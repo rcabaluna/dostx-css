@@ -18,6 +18,24 @@
             .bold-option {
                 font-weight: bold;
             }
+            .btn-group-toggle .btn {
+                cursor: pointer;
+            }
+
+            .btn-group-toggle .btn input[type="radio"] {
+                display: none;
+            }
+
+            .btn-group-toggle .btn input[type="radio"]:checked + label {
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+
+            .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show>.btn-primary.dropdown-toggle{
+                color: white;
+                background-color: #3f87f5 !important;
+            }
+            
         </style>
         <script>var BASE_URL = '<?=base_url()?>'; </script>
     </head>
@@ -30,31 +48,60 @@
                             <div class="col-md-12 col-lg-10 m-h-auto">
                                 <div class="card shadow-lg">
                                     <div class="card-body">
-                                        <div class="d-flex align-items-center justify-content-between m-b-30">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <!-- <img class="img-fluid" alt="" src="<?=base_url('assets/images/logo/logo.png')?>"> -->
+                                        
+                                        <form id="frm-step-0" method="POST">
+                                        <div class="row">
+                                                <div class="col-md-12 d-flex justify-content-center m-b-40">
+                                                    <img class="text-center w-30" src="<?=base_url('assets/images/logo/logo-big.png')?>">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <h4 class="text-center"><b>HELP US SERVE YOU BETTER!</b></h4>
-                                                    <p style="text-align:justify;"> The <b>Client Satisfaction Measurement (CSM)</b> tracks the customer experience of government offices. Your feedback on your <u>recently concluded transaction</u> will help this office provide a better service.
+                                                    <p class="text-dark"  style="text-align:justify;"> The <b>Client Satisfaction Measurement (CSM)</b> tracks the customer experience of government offices. Your feedback on your <u>recently concluded transaction</u> will help this office provide a better service.
+                                                        Personal Information shared will be kept confidential and you always have the option not to answer this form.
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12 m-t-20 ">
+                                                    <h5>I am transacting with:</h5>
+                                                    <div class="btn-group-vertical btn-group-toggle w-100" data-toggle="buttons">
+                                                        <?php
+                                                            foreach ($offices as $officesRow) {
+                                                                ?>
+                                                                <label class="btn btn-primary btn-tone mb-2" onclick="enableNextButtonZero(this)">
+                                                                <input type="radio" name="officeid" autocomplete="off" value="<?=$officesRow['officeid']?>"> <?=$officesRow['name']?>
+                                                        </label>
+                                                                
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" id="btnFirstNext" disabled>Next</button>
+                                        </form>
+                                        <form id="frm-step-1" method="POST" style="display: none;">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12 d-flex justify-content-center m-b-10">
+                                                    <img class="text-center" alt="" src="<?=base_url('assets/images/logo/logo.png')?>">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <h4 class="text-center"><b>HELP US SERVE YOU BETTER!</b></h4>
+                                                    <p class="text-dark"  style="text-align:justify;"> The <b>Client Satisfaction Measurement (CSM)</b> tracks the customer experience of government offices. Your feedback on your <u>recently concluded transaction</u> will help this office provide a better service.
                                                         Personal Information shared will be kept confidential and you always have the option not to answer this form.
                                                     </p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <form id="frm-step-1" method="POST">
                                                 <div class="form-group">
                                                     <label for="inputAddress"><b>Service Availed:</b> <span class="text-danger">*</span></label>
                                                     <select class="form-control" class="form-control" name="servicesid" required>
                                                         <option value="">Please select a service...</option>
                                                         <?php foreach ($services as $servicesRow) { ?>
                                                             <option value="<?=$servicesRow['servicesid']?>">
-                                                                <?=$servicesRow['name']?>
-                                                                <?php if ($servicesRow['name'] != null && $servicesRow['unit'] != null){
+                                                                <?=$servicesRow['unit']?>
+                                                                <?php if ($servicesRow['unit'] != null && $servicesRow['name'] != null){
                                                                     echo " - ";
                                                                 }?>
-                                                                <?=$servicesRow['unit']?>
+                                                                <?=$servicesRow['name']?>
                                                                 <?=$servicesRow['is_cc'] == 1 ? '*' : ''?></b>
                                                             </option>
                                                             <?php } ?>
@@ -64,7 +111,6 @@
                                                     <label for="attending-dost-personnel"><b>Attending DOST Personnel:</b> <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="attending-dost-personnel" name="dost_personnel" placeholder="Enter attending DOST personnel" required/>
                                                 </div>
-                                                <hr>
                                                 <div class="form-group">
                                                     <label for="client-type"><b>Client Type:</b> <span class="text-danger">*</span></label>
                                                     <?php foreach ($clienttype as $clienttypeRow) { ?>
@@ -148,13 +194,15 @@
                                                         <label for="chkhdyk6">Others</label>
                                                     </div>
                                                 </div>
+                                                <button type="button" onclick="backForm(1,0)" class="btn btn-primary btn-tone m-r-5">Back</button>
                                                 <button type="submit" class="btn btn-primary">Next</button>
                                         </form>
                                             <form id="frm-step-2" method="POST" style="display:none;">
-                                                <p>
+                                                <p class="text-dark" >
                                                     INSTRUCTIONS: Select your answer to the Citizen's Charter (CC) questions. The Citizen's Charter is an official document that reflects the services of a government agency/office including its
                                                     requirements, fees, and processing times among others.
                                                 </p>
+                                                <p class="text-dark" >Note: This is a pre-filled survey. You may change the answer with your answer for this survey.</p>
 
                                                 <div class="form-group">
                                                     <label for="cc1"><b>CC1: Which of the following best describes your awareness of a CC?</b> <span class="text-danger">*</span></label>
@@ -215,6 +263,8 @@
                                                 <button type="submit" class="btn btn-primary">Next</button>
                                             </form>
                                             <form id="frm-step-3" method="POST" style="display:none;">
+                                                <hr>
+                                                <p class="text-dark" >INSTRUCTIONS: For SQD 0-8, please put a check mark (✔) on the column that best corresponds with your answer.</p>
                                                 <div class="form-group">
                                                     <label for="sqd0"><b>SQD0. I am satisfied with the service that I availed.</b> <span class="text-danger">*</span></label>
                                                     <div class="radio">
@@ -460,9 +510,20 @@
         <script src="<?=base_url('assets/js/app.min.js')?>"></script>
 
         <script>
+            var officeid = '';
+
             $(document).ready(function () {
+                $("#frm-step-0").submit(function (e) { 
+                    frm0data = $("#frm-step-0").serializeArray();
+                    $("#frm-step-0").hide();
+                    $("#frm-step-1").show();
+                    e.preventDefault();
+                });
+
                 $("#frm-step-1").submit(function (e) { 
                     frm1data = $("#frm-step-1").serializeArray();
+
+                    frm1data.push({name: "officeid", value: officeid});
                     console.log(frm1data);
                     $("#frm-step-1").hide();
                     $("#frm-step-2").show();
@@ -503,6 +564,12 @@
                 $("#frm-step-"+previous).show();
                 $("#frm-step-"+current).hide();
             }
+
+            function enableNextButtonZero(element) {
+            // Get the value of the radio button inside the clicked label
+            officeid = $(element).find('input[name="officeid"]').val();
+            $("#btnFirstNext").prop('disabled','');
+        }
         </script>
 
     </body>
