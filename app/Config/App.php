@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = BASE;
+    public string $baseURL = BASE.'/dostx_css';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
